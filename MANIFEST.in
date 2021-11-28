@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include resiina *.css
+recursive-include resiina *.csv
+recursive-include resiina *.html
+recursive-include resiina *.ico
+recursive-include resiina *.js
+recursive-include resiina *.json
+recursive-include resiina *.md
+recursive-include resiina *.png
+recursive-include resiina *.py
+recursive-include resiina *.svg
+recursive-include resiina *.txt
+recursive-exclude resiina *.pyc
