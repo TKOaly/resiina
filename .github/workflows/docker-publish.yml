@@ -65,3 +65,15 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.nginx-meta.outputs.tags }}
           labels: ${{ steps.nginx-meta.outputs.labels }}
+          
+      - name: Update worker Portainer service
+        uses: joelwmale/webhook-action@master
+        if: github.event_name != 'pull_request'
+        with:
+          url: ${{ secrets.WORKER_SERVICE_WEBHOOK }}
+          
+      - name: Update nginx Portainer service
+        uses: joelwmale/webhook-action@master
+        if: github.event_name != 'pull_request'
+        with:
+          url: ${{ secrets.NGINX_SERVICE_WEBHOOK }}
