@@ -1,0 +1,114 @@
+version: '3'
+
+services:
+  frappe-nginx:
+    image: frappe/frappe-nginx:version-13
+    restart: on-failure
+    ports:
+      - 8080:8080
+    environment:
+      - FRAPPE_PY=frappe-python
+      - FRAPPE_PY_PORT=8000
+      - FRAPPE_SOCKETIO=frappe-socketio
+      - SOCKETIO_PORT=9000
+      - LETSENCRYPT_HOST=
+      - VIRTUAL_HOST=resiina.tko-aly.fi
+    depends_on:
+      - frappe-python
+      - frappe-socketio
+      - frappe-worker-default
+    links:
+      - frappe-python
+      - frappe-socketio
+      - frappe-worker-default
+    volumes:
+      - sites-vol:/var/www/html/sites:rw
+      - assets-vol:/assets:rw
+
+  frappe-python:
+    image: frappe/frappe-worker:version-13
+    restart: on-failure
+    environment:
+      - POSTGRES_HOST=postgresql
+      - REDIS_CACHE=redis:6379
+      - REDIS_QUEUE=redis:6379
+      - REDIS_SOCKETIO=redis:6379
+      - SOCKETIO_PORT=9000
+      - AUTO_MIGRATE=1
+    volumes:
+      - sites-vol:/home/frappe/frappe-bench/sites:rw
+      - logs-vol:/home/frappe/frappe-bench/logs:rw
+      - assets-vol:/home/frappe/frappe-bench/sites/assets:rw
+
+  frappe-socketio:
+    image: frappe/frappe-socketio:version-13
+    restart: on-failure
+    depends_on:
+      - redis
+    links:
+      - redis
+    volumes:
+      - sites-vol:/home/frappe/frappe-bench/sites:rw
+      - logs-vol:/home/frappe/frappe-bench/logs:rw
+
+  frappe-worker-default:
+    image: frappe/frappe-worker:version-13
+    restart: on-failure
+    command: worker
+    depends_on:
+      - redis
+    links:
+      - redis
+    volumes:
+      - sites-vol:/home/frappe/frappe-bench/sites:rw
+      - logs-vol:/home/frappe/frappe-bench/logs:rw
+
+  frappe-schedule:
+    image: frappe/frappe-worker:version-13
+    restart: on-failure
+    command: schedule
+    depends_on:
+      - redis
+    links:
+      - redis
+    volumes:
+      - sites-vol:/home/frappe/frappe-bench/sites:rw
+      - logs-vol:/home/frappe/frappe-bench/logs:rw
+
+  redis:
+    image: redis:latest
+    restart: on-failure
+    volumes:
+      - redis-vol:/data
+
+  postgresql:
+    image: postgres:14.1
+    restart: on-failure
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_ROOT_PASSWORD}
+    volumes:
+      - postgresql-vol:/var/lib/postgresql/data
+
+  site-creator:
+    image: frappe/frappe-worker:version-13
+    restart: "no"
+    command: new
+    depends_on:
+      - frappe-python
+    environment:
+      - SITE_NAME=resiina.tko-aly.fi
+      - DB_ROOT_USER=postgres
+      - POSTGRES_HOST=postgresql
+      - POSTGRES_PASSWORD=${POSTGRES_ROOT_PASSWORD}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - INSTALL_APPS=
+    volumes:
+      - sites-vol:/home/frappe/frappe-bench/sites:rw
+      - logs-vol:/home/frappe/frappe-bench/logs:rw
+
+volumes:
+  assets-vol:
+  sites-vol:
+  logs-vol:
+  redis-vol:
+  postgresql-vol:
