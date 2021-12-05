@@ -17,8 +17,12 @@ app_license = "MIT"
 # app_include_js = "/assets/resiina/js/resiina.js"
 
 # include js, css files in header of web template
-# web_include_css = "/assets/resiina/css/resiina.css"
-# web_include_js = "/assets/resiina/js/resiina.js"
+web_include_css = [
+    "/assets/resiina/css/members_login_button.css"
+]
+web_include_js = [
+    "/assets/resiina/js/members_login_button.js"
+]
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "resiina/public/scss/website"
@@ -109,6 +113,10 @@ app_license = "MIT"
 # Scheduled Tasks
 # ---------------
 
+scheduler_events = {
+    "daily": ["resiina.integration.sync_members"],
+}
+
 # scheduler_events = {
 # 	"all": [
 # 		"resiina.tasks.all"
@@ -177,6 +185,18 @@ app_license = "MIT"
 
 # Authentication and authorization
 # --------------------------------
+
+extend_bootinfo = [
+    "resiina.integration.auth.extend_bootinfo"
+]
+
+auth_hooks = [
+    "resiina.integration.auth.validate_session"
+]
+
+on_logout = [
+    "resiina.integration.auth.on_logout"
+]
 
 # auth_hooks = [
 # 	"resiina.auth.validate"

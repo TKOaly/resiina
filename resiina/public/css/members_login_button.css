@@ -1,0 +1,14 @@
+.form-login button.btn-members-login {
+  background-color: #FFC825;
+}
+
+.form-login button.btn-members-login:hover {
+  background-color: #F2BE24;
+}
+
+.form-login h6 {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #717171;
+  margin-top: 0.4rem;
+}

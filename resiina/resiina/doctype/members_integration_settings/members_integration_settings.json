@@ -1,0 +1,117 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2021-12-05 00:26:05.790012",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "database_connection_section",
+  "db_host",
+  "db_user",
+  "db_name",
+  "column_break_5",
+  "db_port",
+  "db_password",
+  "user_service_section",
+  "user_service_public_url",
+  "user_service_internal_url",
+  "user_service_id",
+  "user_service_secret"
+ ],
+ "fields": [
+  {
+   "fieldname": "database_connection_section",
+   "fieldtype": "Section Break",
+   "label": "Database Connection"
+  },
+  {
+   "fieldname": "db_host",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Host",
+   "reqd": 1
+  },
+  {
+   "fieldname": "db_user",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "User",
+   "reqd": 1
+  },
+  {
+   "fieldname": "db_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Database Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "db_port",
+   "fieldtype": "Int",
+   "label": "Port"
+  },
+  {
+   "fieldname": "db_password",
+   "fieldtype": "Password",
+   "in_list_view": 1,
+   "label": "Password",
+   "reqd": 1
+  },
+  {
+   "fieldname": "user_service_section",
+   "fieldtype": "Section Break",
+   "label": "User Service"
+  },
+  {
+   "fieldname": "user_service_public_url",
+   "fieldtype": "Data",
+   "label": "Public URL",
+   "reqd": 1
+  },
+  {
+   "fieldname": "user_service_internal_url",
+   "fieldtype": "Data",
+   "label": "Internal URL",
+   "reqd": 1
+  },
+  {
+   "fieldname": "user_service_id",
+   "fieldtype": "Data",
+   "label": "Service Identifier",
+   "reqd": 1
+  },
+  {
+   "fieldname": "user_service_secret",
+   "fieldtype": "Password",
+   "label": "JWT Secret",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2021-12-05 02:43:50.586713",
+ "modified_by": "Administrator",
+ "module": "Resiina",
+ "name": "Members Integration Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
