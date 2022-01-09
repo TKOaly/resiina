@@ -41,7 +41,7 @@ def update_user_into(token, settings):
     service_identifier = settings.user_service_id
 
     res = requests.get(
-        f'{user_service_url}/api/users/me?dataRequest=55295',
+        f'{user_service_url}/api/users/me?dataRequest=535',
         headers={
             "Authorization": f"Bearer {token}",
             "Service": service_identifier,
