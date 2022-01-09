@@ -1,2 +1,3 @@
 [mariadb]
 collation_server=utf8mb4_unicode_ci
+innodb_read_only_compressed=OFF
