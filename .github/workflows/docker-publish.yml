@@ -78,8 +78,8 @@ jobs:
           context: .
           file: Dockerfile.mariadb
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.worker-meta.outputs.tags }}
-          labels: ${{ steps.worker-meta.outputs.labels }}
+          tags: ${{ steps.mariadb-meta.outputs.tags }}
+          labels: ${{ steps.mariadb-meta.outputs.labels }}
           
       - name: Update worker Portainer service
         run: curl -k -X POST ${{ secrets.WORKER_SERVICE_WEBHOOK }}
